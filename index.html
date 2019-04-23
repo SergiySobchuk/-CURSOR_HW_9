@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="style.css"></link>
 </head>
 <body>
+    <form class="card-style create-card">
+        <label class="name">Name:</label><input id="create-name" type="text">
+        <label class="age">Age:</label><input id="create-age" type="text">
+        <button id="create-btn" type="button">Create user</button>
+    </form>
+    <div class="user-cards">
+    </div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="Script.js"></script>
 </body>
 </html>
