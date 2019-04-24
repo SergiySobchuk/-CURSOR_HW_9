@@ -57,16 +57,18 @@ const renderUser = () => {
         // <!--<button class="delete" type="button" id="delete">delete</button>-->
         // `;
 
-        const inputName = document.createElement('input');
-        inputName.classList.add('name');
-        inputName.value = `${item.name}`;        
+        const lableName = document.createElement('lable');
+        lableName.classList.add('name-lable');
+        lableName.textContent = "Name:";
+
+        const lableAge = document.createElement('lable');
+        lableAge.classList.add('age-lable');
+        lableAge.textContent = "Age:";
 
         const inputName = document.createElement('input');
-        inputName.classList.add('name');
         inputName.value = `${item.name}`;
 
         const inputAge = document.createElement('input');
-        inputAge.classList.add('age');
         inputAge.value = `${item.age}`;
 
         const deleteButton = document.createElement('button');
@@ -80,7 +82,10 @@ const renderUser = () => {
         // const test = document.body.querySelector('card-style');
         // console.log("333333", test);
         // // userElement.className('card-style').appendChild(inputName);
+
+        userElement.appendChild(lableName);
         userElement.appendChild(inputName);
+        userElement.appendChild(lableAge);
         userElement.appendChild(inputAge);
         userElement.appendChild(deleteButton);
         userElement.appendChild(saveButton);
