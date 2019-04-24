@@ -1,3 +1,6 @@
+body{
+    background-color: #c4dce2;
+}
 .card-style{
     border: 1px solid #b89b85;
     margin: 10px;
@@ -16,14 +19,14 @@
 }
 .save{
     position: absolute;
-    margin-left: 20px;
-    margin-top: 50px;
+    margin-left: -195px;
+    margin-top: 25px;
     width: 100px;
 }
 .delete{
     position: absolute;
-    margin-left: 145px;
-    margin-top: 50px;
+    margin-left: -65px;
+    margin-top: 25px;
     width: 100px;
 }
 .create-card{

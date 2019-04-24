@@ -12,22 +12,34 @@ const getUsers = async () =>{
         console.log(users.data.data);
         return users.data.data;
 }
-const deleteUser = async(userID ,selectCard, deleteButton, saveButton) =>{
-    const id = await herokuapp.delete("users/"+userID);
-    console.log("deleteButton:", deleteButton);
+const deleteUser = async(userID ,selectCard) =>{
+    const idDel = await herokuapp.delete("users/"+userID);
+    // console.log("deleteButton:", deleteButton);
     selectCard.remove();
-    deleteButton.remove();
-    saveButton.remove();
-
-    // console.log("id", id);
+    // deleteButton.remove();
+    // saveButton.remove();
+    // console.log("id", idDel);
     // console.log("selectCard", selectCard);
 };
+const updateUser = async(userID, inputName, inputAge) =>{
+    // const editName = document.querySelector(".name").value;
+    // const edirAge = document.querySelector(".age").value;
+    // console.log("userID", userID);
+    // console.log("name", editName);
+    // console.log("age", edirAge);
+    // console.log("inputName", inputName.value);
+    await herokuapp.put("users/" + userID, {
+        name: inputName.value,
+        age: inputAge.value
+    });
+    autoLoadUsers();
+}
 const createUser = async() =>{
-    const name = document.querySelector("#create-name").value;
-    const age = document.querySelector("#create-age").value;
+    const newName = document.querySelector("#create-name").value;
+    const newAge = document.querySelector("#create-age").value;
     await herokuapp.post("users/", {
-        name: name,
-        age: age
+        name: newName,
+        age: newAge
     });
     autoLoadUsers();
 }
@@ -38,12 +50,25 @@ const renderUser = () => {
     ArrayUser.forEach((item)=> {
         const userElement = document.createElement('div');
         userElement.classList.add('card-style');
-        userElement.innerHTML = `
-        <lable class="name">Name:</lable><input value="${item.name}" type="text"><br>
-        <lable class="age">Age:</lable><input value="${item.age}" type="text"><br>
-        <!--<button class="save" type="button" id="save">save</button>-->
-        <!--<button class="delete" type="button" id="delete">delete</button>-->
-        `;
+        // userElement.innerHTML = `
+        // <lable class="name">Name:</lable><input value="${item.name}" type="text"><br>
+        // <lable class="age">Age:</lable><input value="${item.age}" type="text"><br>
+        // <!--<button class="save" type="button" id="save">save</button>-->
+        // <!--<button class="delete" type="button" id="delete">delete</button>-->
+        // `;
+
+        const inputName = document.createElement('input');
+        inputName.classList.add('name');
+        inputName.value = `${item.name}`;        
+
+        const inputName = document.createElement('input');
+        inputName.classList.add('name');
+        inputName.value = `${item.name}`;
+
+        const inputAge = document.createElement('input');
+        inputAge.classList.add('age');
+        inputAge.value = `${item.age}`;
+
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete');
         deleteButton.textContent = 'delete';
@@ -52,17 +77,33 @@ const renderUser = () => {
         saveButton.classList.add('save');
         saveButton.textContent = 'save';
 
+        // const test = document.body.querySelector('card-style');
+        // console.log("333333", test);
+        // // userElement.className('card-style').appendChild(inputName);
+        userElement.appendChild(inputName);
+        userElement.appendChild(inputAge);
+        userElement.appendChild(deleteButton);
+        userElement.appendChild(saveButton);
+
+        console.log("22222: ", userElement);
+        // console.log("44444: ", test3);
+
         // const deleteButton = document.getElementById("delete");
-        console.log("item.id:" , item.id);
-        console.log("userElement:" , userElement);
-        console.log("deleteButton:" , deleteButton);
-        console.log("saveButton:" , saveButton);
-        console.log("-------------------");
+        // console.log("item.id:" , item.id);
+        // console.log("userElement:" , userElement);
+        // console.log("deleteButton:" , deleteButton);
+        // console.log("saveButton:" , saveButton);
+        // console.log("-------------------");
         deleteButton.addEventListener('click', () => {
-            deleteUser(item.id, userElement, deleteButton, saveButton);
+            deleteUser(item.id, userElement);
         });
-        container.append(deleteButton);
-        container.append(saveButton);
+        saveButton.addEventListener('click', () => {
+            updateUser(item.id, inputName, inputAge);
+        });
+        // container.append(inputName);
+        // container.append(inputAge);
+        // container.append(deleteButton);
+        // container.append(saveButton);
         container.append(userElement);
     });
 }
