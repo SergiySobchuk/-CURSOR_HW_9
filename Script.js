@@ -1,4 +1,3 @@
-//test
 const herokuapp = axios.create({
     baseURL: "https://test-users-api.herokuapp.com/",
     headers: {
@@ -7,27 +6,15 @@ const herokuapp = axios.create({
 });
 
 const getUsers = async () =>{
-        const users = await herokuapp.get("users/");
-        // console.log(users);
-        console.log(users.data.data);
-        return users.data.data;
+     const users = await herokuapp.get("users/");
+     return users.data.data;
 }
 const deleteUser = async(userID ,selectCard) =>{
-    const idDel = await herokuapp.delete("users/"+userID);
-    // console.log("deleteButton:", deleteButton);
+    await herokuapp.delete("users/"+userID);
     selectCard.remove();
-    // deleteButton.remove();
-    // saveButton.remove();
-    // console.log("id", idDel);
-    // console.log("selectCard", selectCard);
+
 };
 const updateUser = async(userID, inputName, inputAge) =>{
-    // const editName = document.querySelector(".name").value;
-    // const edirAge = document.querySelector(".age").value;
-    // console.log("userID", userID);
-    // console.log("name", editName);
-    // console.log("age", edirAge);
-    // console.log("inputName", inputName.value);
     await herokuapp.put("users/" + userID, {
         name: inputName.value,
         age: inputAge.value
@@ -50,12 +37,6 @@ const renderUser = () => {
     ArrayUser.forEach((item)=> {
         const userElement = document.createElement('div');
         userElement.classList.add('card-style');
-        // userElement.innerHTML = `
-        // <lable class="name">Name:</lable><input value="${item.name}" type="text"><br>
-        // <lable class="age">Age:</lable><input value="${item.age}" type="text"><br>
-        // <!--<button class="save" type="button" id="save">save</button>-->
-        // <!--<button class="delete" type="button" id="delete">delete</button>-->
-        // `;
 
         const lableName = document.createElement('lable');
         lableName.classList.add('name-lable');
@@ -79,10 +60,6 @@ const renderUser = () => {
         saveButton.classList.add('save');
         saveButton.textContent = 'save';
 
-        // const test = document.body.querySelector('card-style');
-        // console.log("333333", test);
-        // // userElement.className('card-style').appendChild(inputName);
-
         userElement.appendChild(lableName);
         userElement.appendChild(inputName);
         userElement.appendChild(lableAge);
@@ -90,25 +67,12 @@ const renderUser = () => {
         userElement.appendChild(deleteButton);
         userElement.appendChild(saveButton);
 
-        console.log("22222: ", userElement);
-        // console.log("44444: ", test3);
-
-        // const deleteButton = document.getElementById("delete");
-        // console.log("item.id:" , item.id);
-        // console.log("userElement:" , userElement);
-        // console.log("deleteButton:" , deleteButton);
-        // console.log("saveButton:" , saveButton);
-        // console.log("-------------------");
         deleteButton.addEventListener('click', () => {
             deleteUser(item.id, userElement);
         });
         saveButton.addEventListener('click', () => {
             updateUser(item.id, inputName, inputAge);
         });
-        // container.append(inputName);
-        // container.append(inputAge);
-        // container.append(deleteButton);
-        // container.append(saveButton);
         container.append(userElement);
     });
 }
